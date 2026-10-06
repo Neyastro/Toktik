@@ -1,0 +1,1603 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>TOKTIK</title>
+
+
+<style>
+
+/* =========================================================
+   TOKTIK
+   TIKTOK MAIS DANS UNE AUTRE DIMENSION
+========================================================= */
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html,
+body {
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff00cc,
+            #7b00ff,
+            #00eaff
+        );
+
+}
+
+
+/* =========================================================
+   FEED
+========================================================= */
+
+
+.feed {
+
+    width: 100vw;
+    height: 100vh;
+
+    overflow-y: auto;
+
+    scroll-snap-type:
+        y mandatory;
+
+    scrollbar-width: none;
+
+}
+
+
+.feed::-webkit-scrollbar {
+    display: none;
+}
+
+
+/* =========================================================
+   VIDEO CARD
+========================================================= */
+
+
+.video-card {
+
+    position: relative;
+
+    width: 100vw;
+    height: 100vh;
+
+    overflow: hidden;
+
+    scroll-snap-align:
+        start;
+
+    scroll-snap-stop:
+        always;
+
+    background: #222;
+
+}
+
+
+/* VIDEO */
+
+
+.video-card video {
+
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+}
+
+
+/* =========================================================
+   FAUX EFFETS DE TOKTIK
+========================================================= */
+
+
+.video-card::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+
+        linear-gradient(
+            to bottom,
+            rgba(0,0,0,0.35),
+            transparent 25%,
+            transparent 65%,
+            rgba(0,0,0,0.75)
+        );
+
+}
+
+
+/* =========================================================
+   TOP BAR
+========================================================= */
+
+
+.topbar {
+
+    position: fixed;
+
+    z-index: 100;
+
+    top: 0;
+
+    left: 0;
+    right: 0;
+
+    height: 95px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 15px 20px;
+
+    pointer-events: none;
+
+}
+
+
+/* LOGO */
+
+
+.logo {
+
+    font-size: 35px;
+
+    font-weight: 1000;
+
+    font-style: italic;
+
+    letter-spacing: -4px;
+
+    transform:
+        rotate(-3deg);
+
+    color: white;
+
+    text-shadow:
+
+        3px 3px 0 #ff00c8,
+        6px 6px 0 #00eaff;
+
+}
+
+
+/* petit texte */
+
+
+.logo span {
+
+    display: block;
+
+    margin-left: 4px;
+
+    margin-top: -4px;
+
+    font-size: 8px;
+
+    letter-spacing: 2px;
+
+    font-style: normal;
+
+    color: yellow;
+
+    text-shadow:
+        1px 1px 0 black;
+
+}
+
+
+/* =========================================================
+   FAUSSE VERSION
+========================================================= */
+
+
+.version {
+
+    padding: 8px 11px;
+
+    font-size: 10px;
+
+    font-weight: bold;
+
+    color: black;
+
+    background: #ffe600;
+
+    border: 3px solid black;
+
+    border-radius: 8px;
+
+    transform:
+        rotate(3deg);
+
+    box-shadow:
+        4px 4px 0 black;
+
+}
+
+
+/* =========================================================
+   TABS
+========================================================= */
+
+
+.tabs {
+
+    position: fixed;
+
+    z-index: 110;
+
+    top: 88px;
+
+    left: 50%;
+
+    transform:
+        translateX(-50%)
+        rotate(-1deg);
+
+    display: flex;
+
+    gap: 20px;
+
+    font-size: 13px;
+
+    font-weight: 900;
+
+}
+
+
+.tabs span {
+
+    padding: 6px 10px;
+
+    color: white;
+
+    opacity: .55;
+
+}
+
+
+.tabs .active {
+
+    opacity: 1;
+
+    color: black;
+
+    background: #ffe600;
+
+    border: 2px solid black;
+
+    border-radius: 7px;
+
+    box-shadow:
+        3px 3px 0 black;
+
+}
+
+
+/* =========================================================
+   VIDEO INFO
+========================================================= */
+
+
+.info {
+
+    position: absolute;
+
+    z-index: 20;
+
+    left: 18px;
+
+    bottom: 25px;
+
+    width: 68%;
+
+}
+
+
+/* USER */
+
+
+.username {
+
+    display: inline-block;
+
+    margin-bottom: 9px;
+
+    padding: 5px 9px;
+
+    font-size: 16px;
+
+    font-weight: 900;
+
+    color: black;
+
+    background: #00f7ff;
+
+    border: 3px solid black;
+
+    border-radius: 7px;
+
+    box-shadow:
+        4px 4px 0 black;
+
+    transform:
+        rotate(-1deg);
+
+}
+
+
+.username::before {
+
+    content: "@";
+
+}
+
+
+/* CAPTION */
+
+
+.caption {
+
+    margin-bottom: 10px;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    line-height: 1.35;
+
+    color: white;
+
+    text-shadow:
+
+        2px 2px 0 black,
+        -1px -1px 0 black;
+
+}
+
+
+/* TAG */
+
+
+.dimension-tag {
+
+    display: inline-block;
+
+    padding: 5px 8px;
+
+    font-size: 10px;
+
+    font-weight: 900;
+
+    color: black;
+
+    background: #ff7b00;
+
+    border: 2px solid black;
+
+    border-radius: 5px;
+
+    transform:
+        rotate(2deg);
+
+}
+
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+
+.actions {
+
+    position: absolute;
+
+    z-index: 30;
+
+    right: 12px;
+
+    bottom: 24px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 15px;
+
+}
+
+
+.action {
+
+    text-align: center;
+
+    font-size: 10px;
+
+    font-weight: 900;
+
+    color: white;
+
+    text-shadow:
+        2px 2px 0 black;
+
+}
+
+
+/* BOUTON */
+
+
+.icon {
+
+    width: 50px;
+    height: 50px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 15px;
+
+    font-size: 24px;
+
+    color: black;
+
+    background: white;
+
+    border: 3px solid black;
+
+    box-shadow:
+        4px 4px 0 black;
+
+    cursor: pointer;
+
+    transition:
+        transform .15s;
+
+}
+
+
+.icon:hover {
+
+    transform:
+        rotate(-8deg)
+        scale(1.12);
+
+}
+
+
+/* =========================================================
+   LIKE
+========================================================= */
+
+
+.like.liked .icon {
+
+    background:
+        #ff2f92;
+
+    transform:
+        rotate(-8deg)
+        scale(1.1);
+
+}
+
+
+/* =========================================================
+   COMPTEUR
+========================================================= */
+
+
+.count {
+
+    margin-top: 5px;
+
+}
+
+
+/* =========================================================
+   PAUSE
+========================================================= */
+
+
+.pause {
+
+    position: absolute;
+
+    z-index: 40;
+
+    top: 50%;
+    left: 50%;
+
+    transform:
+        translate(-50%, -50%)
+        rotate(-5deg);
+
+    width: 80px;
+    height: 80px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    font-size: 30px;
+
+    color: black;
+
+    background: #ffe600;
+
+    border: 4px solid black;
+
+    border-radius: 20px;
+
+    box-shadow:
+        7px 7px 0 black;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+}
+
+
+.video-card.paused .pause {
+
+    opacity: 1;
+
+}
+
+
+/* =========================================================
+   PETIT TEXTE DE SCROLL
+========================================================= */
+
+
+.scroll-hint {
+
+    position: fixed;
+
+    z-index: 200;
+
+    bottom: 12px;
+
+    left: 50%;
+
+    transform:
+        translateX(-50%)
+        rotate(-2deg);
+
+    padding: 6px 9px;
+
+    font-family: monospace;
+
+    font-size: 9px;
+
+    font-weight: bold;
+
+    color: black;
+
+    background: #ffe600;
+
+    border: 2px solid black;
+
+    border-radius: 5px;
+
+    box-shadow:
+        3px 3px 0 black;
+
+    pointer-events: none;
+
+    animation:
+        wiggle 1.5s infinite;
+
+}
+
+
+@keyframes wiggle {
+
+    0% {
+        transform:
+            translateX(-50%)
+            rotate(-2deg);
+    }
+
+    50% {
+        transform:
+            translateX(-50%)
+            rotate(2deg);
+    }
+
+    100% {
+        transform:
+            translateX(-50%)
+            rotate(-2deg);
+    }
+
+}
+
+
+/* =========================================================
+   PETITS EMOJIS FLOTTANTS
+========================================================= */
+
+
+.floating {
+
+    position: absolute;
+
+    z-index: 6;
+
+    font-size: 28px;
+
+    pointer-events: none;
+
+    animation:
+        float 4s ease-in-out infinite;
+
+}
+
+
+.floating.one {
+
+    top: 25%;
+    left: 8%;
+
+}
+
+
+.floating.two {
+
+    top: 40%;
+    right: 20%;
+
+    animation-delay:
+        1s;
+
+}
+
+
+.floating.three {
+
+    top: 18%;
+    right: 12%;
+
+    animation-delay:
+        2s;
+
+}
+
+
+@keyframes float {
+
+    0% {
+
+        transform:
+            translateY(0)
+            rotate(0deg);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-15px)
+            rotate(15deg);
+
+    }
+
+    100% {
+
+        transform:
+            translateY(0)
+            rotate(0deg);
+
+    }
+
+}
+
+
+/* =========================================================
+   DESKTOP
+========================================================= */
+
+
+@media (min-width: 700px) {
+
+    .video-card {
+
+        width:
+            min(100vw, 620px);
+
+        margin:
+            auto;
+
+    }
+
+    .topbar {
+
+        width:
+            min(100vw, 620px);
+
+        left: 50%;
+        right: auto;
+
+        transform:
+            translateX(-50%);
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =======================================================
+                         HEADER
+======================================================== -->
+
+
+<header class="topbar">
+
+
+    <div class="logo">
+
+        toktik
+
+        <span>
+            DEFINITELY NOT TIKTOK
+        </span>
+
+    </div>
+
+
+    <div class="version">
+
+        v∞.69
+
+    </div>
+
+
+</header>
+
+
+
+<!-- =======================================================
+                           TABS
+======================================================== -->
+
+
+<div class="tabs">
+
+    <span>
+        MAYBE FRIENDS
+    </span>
+
+    <span class="active">
+        FOR YOU
+    </span>
+
+    <span>
+        IDK
+    </span>
+
+</div>
+
+
+
+<!-- =======================================================
+                          FEED
+======================================================== -->
+
+
+<main
+    class="feed"
+    id="feed">
+</main>
+
+
+
+<div class="scroll-hint">
+
+    ↓ SWIPE INTO ANOTHER UNIVERSE ↓
+
+</div>
+
+
+
+<script>
+
+
+/* =========================================================
+   TES VIDÉOS
+=========================================================
+
+Mets tes vidéos à côté du fichier HTML :
+
+video1.mp4
+video2.mp4
+video3.mp4
+video4.mp4
+
+Tu peux en ajouter autant que tu veux.
+
+========================================================= */
+
+
+const videos = [
+
+    {
+
+        video:
+            "ali.mp4",
+
+        user:
+            "AMBI_KARIMBI",
+
+        caption:
+            "Dans les dauphins le mobilier se promène ù§",
+
+        tag:
+            "LE PORC AU POULET SOUS LE TAPIS",
+
+        likes:
+            "694K",
+
+        comments:
+            "12K"
+
+    },
+
+
+    {
+
+        video:
+            "bimbi.mp4",
+
+        user:
+            "BAMBI_BARIMBI",
+
+        caption:
+            "Le toktik la le truc la",
+
+        tag:
+            "MEUBLE TV",
+
+        likes:
+            "420K",
+
+        comments:
+            "6 969"
+
+    },
+
+
+    {
+
+        video:
+            "brimbi.mp4",
+
+        user:
+            "Virtuose_des_khlewis",
+
+        caption:
+            "Vous voyez les verre rouge la dans la chaise",
+
+        tag:
+            "???????",
+
+        likes:
+            "1.2M",
+
+        comments:
+            "84K"
+
+    },
+
+
+    {
+
+        video:
+            "bimbim.mp4",
+
+        user:
+            "rimbirmbi",
+
+        caption:
+            "POV : regardez pas le pouli, père du",
+
+        tag:
+            "DOUZE",
+
+        likes:
+            "88K",
+
+        comments:
+            "1 337"
+
+    },
+
+
+    {
+
+        video:
+            "cemat.mp4",
+
+        user:
+            "le_dirigens",
+
+        caption:
+            "Monkey D. Prout",
+
+        tag:
+            "Leuf",
+
+        likes:
+            "999K",
+
+        comments:
+            "0"
+
+    }
+
+];
+
+
+
+/* =========================================================
+   CRÉATION DES VIDÉOS
+========================================================= */
+
+
+const feed =
+    document.getElementById(
+        "feed"
+    );
+
+
+function createVideo(
+    data,
+    index
+) {
+
+
+    const card =
+        document.createElement(
+            "section"
+        );
+
+
+    card.className =
+        "video-card";
+
+
+    card.innerHTML = `
+
+        <video
+            src="${data.video}"
+            loop
+            playsinline
+            preload="metadata">
+        </video>
+
+
+        <div class="floating one">
+            🤑
+        </div>
+
+        <div class="floating two">
+            🦆
+        </div>
+
+        <div class="floating three">
+            ⭐
+        </div>
+
+
+        <div class="pause">
+
+            Ⅱ
+
+        </div>
+
+
+        <div class="info">
+
+
+            <div class="username">
+
+                ${data.user}
+
+            </div>
+
+
+            <div class="caption">
+
+                ${data.caption}
+
+            </div>
+
+
+            <div class="dimension-tag">
+
+                ${data.tag}
+
+            </div>
+
+
+        </div>
+
+
+
+        <div class="actions">
+
+
+            <div class="action like">
+
+
+                <div class="icon">
+
+                    ♡
+
+                </div>
+
+
+                <div class="count">
+
+                    ${data.likes}
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="action">
+
+
+                <div class="icon">
+
+                    💬
+
+                </div>
+
+
+                <div class="count">
+
+                    ${data.comments}
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="action share">
+
+
+                <div class="icon">
+
+                    📤
+
+                </div>
+
+
+                <div class="count">
+
+                    ENVOYER
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="action">
+
+
+                <div class="icon">
+
+                    🌀
+
+                </div>
+
+
+                <div class="count">
+
+                    ????
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+    `;
+
+
+    const video =
+        card.querySelector(
+            "video"
+        );
+
+
+    /* =====================================================
+       CLIC SUR LA VIDÉO
+    ===================================================== */
+
+
+    card.addEventListener(
+        "click",
+        function(event) {
+
+
+            if (
+                event.target.closest(
+                    ".actions"
+                )
+            ) {
+
+                return;
+
+            }
+
+
+            if (
+                video.paused
+            ) {
+
+                video.play();
+
+                card.classList.remove(
+                    "paused"
+                );
+
+            }
+
+            else {
+
+                video.pause();
+
+                card.classList.add(
+                    "paused"
+                );
+
+            }
+
+        }
+    );
+
+
+
+    /* =====================================================
+       LIKE
+    ===================================================== */
+
+
+    const like =
+        card.querySelector(
+            ".like"
+        );
+
+
+    const likeIcon =
+        like.querySelector(
+            ".icon"
+        );
+
+
+    like.addEventListener(
+        "click",
+        function(event) {
+
+
+            event.stopPropagation();
+
+
+            like.classList.toggle(
+                "liked"
+            );
+
+
+            if (
+                like.classList.contains(
+                    "liked"
+                )
+            ) {
+
+                likeIcon.textContent =
+                    "♥";
+
+            }
+
+            else {
+
+                likeIcon.textContent =
+                    "♡";
+
+            }
+
+        }
+    );
+
+
+
+    /* =====================================================
+       SHARE
+    ===================================================== */
+
+
+    const share =
+        card.querySelector(
+            ".share"
+        );
+
+
+    share.addEventListener(
+        "click",
+        async function(event) {
+
+
+            event.stopPropagation();
+
+
+            if (
+                navigator.share
+            ) {
+
+                try {
+
+                    await navigator.share({
+
+                        title:
+                            "TOKTIK",
+
+                        text:
+                            "Regarde cette vidéo sur TOKTIK."
+
+                    });
+
+                }
+
+                catch {
+
+                    /* annulé */
+
+                }
+
+            }
+
+            else {
+
+                alert(
+                    "Cette dimension ne possède pas encore la fonction partage."
+                );
+
+            }
+
+        }
+    );
+
+
+
+    feed.appendChild(
+        card
+    );
+
+}
+
+
+
+/* =========================================================
+   CRÉATION DU FEED
+========================================================= */
+
+
+videos.forEach(
+    createVideo
+);
+
+
+
+/* =========================================================
+   AUTOPLAY
+========================================================= */
+
+
+const observer =
+    new IntersectionObserver(
+
+        function(entries) {
+
+
+            entries.forEach(
+                function(entry) {
+
+
+                    const video =
+                        entry
+                            .target
+                            .querySelector(
+                                "video"
+                            );
+
+
+                    if (
+
+                        entry.isIntersecting &&
+
+                        entry.intersectionRatio
+                        > 0.65
+
+                    ) {
+
+
+                        /*
+                        Arrête toutes les
+                        autres vidéos
+                        */
+
+                        document
+                            .querySelectorAll(
+                                "video"
+                            )
+                            .forEach(
+                                function(
+                                    otherVideo
+                                ) {
+
+                                    if (
+                                        otherVideo
+                                        !==
+                                        video
+                                    ) {
+
+                                        otherVideo.pause();
+
+                                    }
+
+                                }
+                            );
+
+
+                        video.play().catch(
+                            () => {}
+                        );
+
+
+                    }
+
+                    else {
+
+                        video.pause();
+
+                    }
+
+                }
+            );
+
+        },
+
+
+        {
+
+            threshold:
+                [0.65]
+
+        }
+
+    );
+
+
+
+/* =========================================================
+   OBSERVATION
+========================================================= */
+
+
+document
+    .querySelectorAll(
+        ".video-card"
+    )
+    .forEach(
+        function(card) {
+
+            observer.observe(
+                card
+            );
+
+        }
+    );
+
+
+
+/* =========================================================
+   CLAVIER PC
+========================================================= */
+
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+
+        const cards =
+            [
+                ...
+                document.querySelectorAll(
+                    ".video-card"
+                )
+            ];
+
+
+        const current =
+            cards.findIndex(
+                function(card) {
+
+
+                    const rect =
+                        card.getBoundingClientRect();
+
+
+                    return (
+
+                        rect.top >= -100 &&
+
+                        rect.top
+                        <
+                        window.innerHeight / 2
+
+                    );
+
+                }
+            );
+
+
+
+        /* BAS */
+
+
+        if (
+            event.key ===
+            "ArrowDown"
+        ) {
+
+
+            if (
+                current <
+                cards.length - 1
+            ) {
+
+                cards[
+                    current + 1
+                ].scrollIntoView({
+
+                    behavior:
+                        "smooth"
+
+                });
+
+            }
+
+        }
+
+
+
+        /* HAUT */
+
+
+        if (
+            event.key ===
+            "ArrowUp"
+        ) {
+
+
+            if (
+                current > 0
+            ) {
+
+                cards[
+                    current - 1
+                ].scrollIntoView({
+
+                    behavior:
+                        "smooth"
+
+                });
+
+            }
+
+        }
+
+
+
+        /* ESPACE */
+
+
+        if (
+            event.key ===
+            " "
+        ) {
+
+
+            event.preventDefault();
+
+
+            const card =
+                cards[current];
+
+
+            if (card) {
+
+                card.click();
+
+            }
+
+        }
+
+    }
+
+);
+
+</script>
+
+
+</body>
+
+</html>
